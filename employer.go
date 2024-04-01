@@ -26,12 +26,15 @@ type Employee struct {
 	Pericolous         bool      `json:"pericolous"`
 	DailyTravel        float64   `json:"daily_travel"`
 	AuxCreche          bool      `json:"aux_creche"`
+	DSR                float64   `json:"dsr"`
 }
 
 type EmployeePayroll struct {
 	EmployeeID        string
 	Name              string
 	Position          string
+	ExtraHours50      float64
+	ExtraHours100     float64
 	GrossSalary       float64
 	TotalDiscounts    float64
 	NetSalary         float64
@@ -42,4 +45,6 @@ type EmployeePayroll struct {
 	Vt                float64
 	Va                float64
 	UnionContribution float64
+	AuxCrecheBenefit  float64
+	DSR               float64
 }

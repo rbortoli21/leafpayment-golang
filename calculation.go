@@ -1,6 +1,7 @@
 package main
 
 import (
+	"math"
 	"strconv"
 )
 
@@ -24,6 +25,12 @@ func calculateEmployeePayroll(employee Employee) EmployeePayroll {
 	employeePayroll.Position = employee.Position
 	nightHours := calculateNightHours(employee)
 	employeePayroll.ExtraHours += calculateNightShiftBonus(employee.Salary, nightHours)
+	nightBonus := calculateNightBonus(employee)
+	employeePayroll.ExtraHours += nightBonus
+	extraHours50 := calculateExtraHours50(employee)
+	employeePayroll.ExtraHours += extraHours50
+	extraHours100 := calculateExtraHours100(employee)
+	employeePayroll.ExtraHours += extraHours100
 
 	if employee.Pericolous {
 		employeePayroll.GrossSalary *= 1.30
@@ -149,4 +156,28 @@ func calculateNightShiftBonus(salary, nightHours float64) float64 {
 
 func calculateAuxCrecheBenefit(_ int) float64 {
 	return 300.0
+}
+
+func calculateExtraHours50(employee Employee) float64 {
+	totalHours := float64(employee.HourlyWorkload)
+	if totalHours > 40 {
+		extraHours := math.Min(totalHours-40, 5)
+		return extraHours * 0.5
+	}
+	return 0
+}
+
+func calculateExtraHours100(employee Employee) float64 {
+	totalHours := float64(employee.HourlyWorkload)
+	if totalHours > 45 {
+		return totalHours - 45
+	}
+	return 0
+}
+
+func calculateNightBonus(employee Employee) float64 {
+	nightHours := calculateNightHours(employee)
+	nightBonusPercentage := 0.2
+	nightBonus := float64(employee.Salary) * nightBonusPercentage * float64(nightHours)
+	return nightBonus
 }
