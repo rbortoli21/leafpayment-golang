@@ -1,11 +1,22 @@
+// employer.go
 package main
 
 import (
+	"math"
 	"time"
 )
 
+type Sex int
+
+const (
+	Masculino Sex = iota
+	Feminino
+	Outro
+)
+
 type Employer struct {
-	Name         string     `json:"name"`
+	NameEmployer string     `json:"name"`
+	CNPJ         string     `json:"cnpj"`
 	EmployeeList []Employee `json:"employees"`
 }
 
@@ -13,9 +24,10 @@ type Employee struct {
 	ID                 int       `json:"id"`
 	Name               string    `json:"name"`
 	Position           string    `json:"position"`
+	Gender             Sex       `json:"gender"`
 	Salary             float64   `json:"salary"`
 	Transportation     float64   `json:"transportation"`
-	Children           int       `json:"children"`
+	Dependents         int       `json:"dependents"`
 	Invalid            bool      `json:"invalid"`
 	InsalubrityLevel   string    `json:"insalubrity_level"`
 	ContactWithHazards bool      `json:"contact_with_hazards"`
@@ -30,21 +42,67 @@ type Employee struct {
 }
 
 type EmployeePayroll struct {
-	EmployeeID        string
-	Name              string
-	Position          string
-	ExtraHours50      float64
-	ExtraHours100     float64
-	GrossSalary       float64
-	TotalDiscounts    float64
-	NetSalary         float64
-	Fgts              float64
-	ExtraHours        float64
-	Inss              float64
-	Irrf              float64
-	Vt                float64
-	Va                float64
-	UnionContribution float64
-	AuxCrecheBenefit  float64
-	DSR               float64
+	Employer     Employer
+	EmployeeList []Employee
+}
+
+type Employe struct {
+	Name     string
+	Position string
+}
+
+type Discounts struct {
+	Inss           float64 `json:"inss"`
+	Irff           float64 `json:"irrf"`
+	Fgts           float64 `json:"fgts"`
+	Vt             float64 `json:"vt"`
+	Va             float64 `json:"va"`
+	Dsr            float64 `json:"dsr"`
+	TotalDiscounts float64 `json:"total"`
+}
+
+type Addition struct {
+	Pericolous    float64 `json:"pericolous"`
+	Insalubrity   float64 `json:"insalubrity"`
+	NightShift    float64 `json:"night_shift"`
+	TotalAddition float64 `json:"total"`
+}
+
+type Salary struct {
+	SalaryGross float64 `json:"gross_salary"`
+	SalaryNet   float64 `json:"net_salary"`
+}
+
+type ExtraHours struct {
+	Holiday float64 `json:"holiday"`
+	Total   float64 `json:"total"`
+}
+
+type Holiday struct {
+	Quantity float64 `json:"quantity"`
+}
+
+type AuxCreche struct {
+	Dependents float64 `json:"dependents"`
+	Value      float64 `json:"value"`
+}
+
+type Dependents struct {
+	Name  string  `json:"name"`
+	Value float64 `json:"value"`
+}
+
+type WorkedHours struct {
+	Month float64 `json:"month"`
+	Week  float64 `json:"week"`
+	Day   float64 `json:"day"`
+}
+
+type FamilySalary struct {
+	Total      float64      `json:"total"`
+	Dependents []Dependents `json:"dependents"`
+}
+
+func formatDecimal(num float64) float64 {
+	return math.Round(num*100) / 100
 }
