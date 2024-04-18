@@ -108,7 +108,7 @@ func calculateAddition(employee models.Employee, employer models.Employer) model
 	}
 
 	employeeWorkload := GetLastWorkLoadByEmployeeID(employee.Id)
-	hourValue = formatDecimal(employee.BaseSalary / float64(employeeWorkload.DaysWorked)) / float64(employee.HourlyWorkloadPerDay)
+	hourValue := formatDecimal(employee.BaseSalary / float64(employeeWorkload.DaysWorked)) / float64(employee.HourlyWorkloadPerDay)
 	
 	if employeeWorkload.NocturnalHours > 0 {
 		additions.Nocturnal.Ref = hourValue
