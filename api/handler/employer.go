@@ -19,9 +19,12 @@ func init() {
 
 func getEmployerById(id uint) models.Employer {
 	employer := employerRepository.FindByID(id)
+
 	configurator := employerConfiguratorRepository.FindByEmployerID(id)
+	employees := employeeRepository.FindByEmployerID(id)
 
 	employer.Configurator = configurator
+	employer.Employees = &employees
 
 	return *employer
 }

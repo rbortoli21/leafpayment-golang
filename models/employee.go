@@ -2,7 +2,6 @@ package models
 
 import (
 	"time"
-	
 )
 
 type Employee struct {
@@ -16,7 +15,7 @@ type Employee struct {
 	HasTransportation    bool                `json:"transportation"`
 	HasAlimentation      bool                `json:"alimentation"`
 	HasPericolous        bool                `json:"pericolous"`
-	UnhealthynessLevel   int                 `json:"unhealthyness_level"`
+	UnhealthinessLevel   int                 `json:"unhealthiness_level"`
 	HourlyWorkloadPerDay int                 `json:"hourly_workload"`
 	EmployerID           *uint               `json:"-"`
 	Employer             *Employer           `json:"employer"`
@@ -52,4 +51,6 @@ type EmployeeWorkload struct {
 	DaysWorked     int  `json:"daysNotWorked"`
 	NocturnalHours int  `json:"nocturnalHours"`
 	ExtraHours     int  `json:"extraHours"`
+	WeekendHours   int  `json:"weekendHours"`
+	MissedDSR      int  `json:"missedDSR"`
 }

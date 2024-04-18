@@ -41,7 +41,7 @@ type BenefitsDiscounts struct {
 }
 
 var (
-	VtDiscount   = BenefitsDiscounts{0, "Vale Transporte", 6}
-	VaDiscount   = BenefitsDiscounts{1, "Vale Alimentação", 1}
+	VtDiscount   = BenefitsDiscounts{0, "Vale Transporte", 10}
+	VaDiscount   = BenefitsDiscounts{1, "Vale Alimentação", 10}
 	FgtsDiscount = BenefitsDiscounts{2, "FGTS", 8}
 )

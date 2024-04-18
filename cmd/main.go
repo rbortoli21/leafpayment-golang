@@ -12,7 +12,7 @@ func main() {
 	repository.ConnectWithDataBase()
 
 	http.HandleFunc("/generate-payroll/{id}", handler.GeneratePayrollHandler)
-	http.HandleFunc("/find/{id}", handler.GetEmployerById)
+	http.HandleFunc("/employees", handler.GetAllEmployees)
 
 	handler := corsMiddleware(http.DefaultServeMux)
 
