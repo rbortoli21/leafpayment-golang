@@ -11,8 +11,9 @@ import (
 func main() {
 	repository.ConnectWithDataBase()
 
-	http.HandleFunc("/generate-payroll/{id}", handler.GeneratePayrollHandler)
-	http.HandleFunc("/find/{id}", handler.GetEmployerById)
+	mux := http.NewServeMux()
+	mux.HandleFunc("/generate-payroll/{id}", handler.GeneratePayrollHandler)
+	mux.HandleFunc("/find/{id}", handler.GetEmployerById)
 
 	handler := corsMiddleware(http.DefaultServeMux)
 
