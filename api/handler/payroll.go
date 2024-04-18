@@ -68,7 +68,17 @@ func calculateDiscounts(employee models.Employee) models.DiscountsPayrollDto {
 	if employee.HasTransportation {
 		discounts.TransportVoucher = calculateTransportVoucher(*employee.Employer)
 	}
+
 	workload := GetLastWorkLoadByEmployeeID(employee.Id)
+	
+	if workload.DaysWorked < employee.Employer.Configurator.WorkDays {
+		daysOff := employee.Employer.Configurator.WorkDays - workload.DaysWorked
+
+		discounts.Absence.Ref = formatDecimal(employee.BaseSalary)
+		discounts.Absence.Days = float64(daysOff)
+		discounts.Absence.Value = formatDecimal((employee.BaseSalary / 22) * float64(daysOff))
+	}
+
 	discounts.DSR = models.DiscountDsrDto{
 		Days:  float64(workload.MissedDSR),
 		Ref:   formatDecimal(employee.BaseSalary / float64(employee.Employer.Configurator.WorkDays)),

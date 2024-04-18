@@ -32,9 +32,9 @@ type DiscountsPayrollDto struct {
 }
 
 type DiscountDto struct {
-	Ref     float64 `json:"ref,omitempty"`
-	Percent float64 `json:"percent,omitempty"`
-	Value   float64 `json:"value,omitempty"`
+	Ref   float64 `json:"ref,omitempty"`
+	Days  float64 `json:"days,omitempty"`
+	Value float64 `json:"value,omitempty"`
 }
 
 type DiscountDsrDto struct {
