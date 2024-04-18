@@ -40,7 +40,7 @@ type DiscountDto struct {
 type DiscountDsrDto struct {
 	Days  float64 `json:"days,omitempty"`
 	Ref   float64 `json:"ref,omitempty"`
-	Total float64 `json:"total,omitempty"`
+	Total float64 `json:"value,omitempty"`
 }
 
 type AdditionsPayrollDto struct {
@@ -80,7 +80,7 @@ type AdditionNocturnalWeekendDto struct {
 
 type AdditionFamilySalaryDto struct {
 	Ref        float64                `json:"ref,omitempty"`
-	Total      float64                `json:"total,omitempty"`
+	Total      float64                `json:"value,omitempty"`
 	Percent    float64                `json:"percent,omitempty"`
 	Dependents []AdditionDependentDto `json:"dependents,omitempty"`
 }
@@ -88,7 +88,7 @@ type AdditionFamilySalaryDto struct {
 type AdditionChildcareAssistanceDto struct {
 	Ref     float64 `json:"ref,omitempty"`
 	Percent float64 `json:"percent,omitempty"`
-	Total   float64 `json:"total,omitempty"`
+	Total   float64 `json:"value,omitempty"`
 }
 
 type AdditionDependentDto struct {
@@ -97,6 +97,6 @@ type AdditionDependentDto struct {
 }
 
 type SalaryPayrollDto struct {
-	Gross float64 `json:"gros_salary,omitempty"`
+	Gross float64 `json:"gross_salary,omitempty"`
 	Net   float64 `json:"net_salary,omitempty"`
 }

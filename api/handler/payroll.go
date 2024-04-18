@@ -108,25 +108,26 @@ func calculateAddition(employee models.Employee, employer models.Employer) model
 	}
 
 	employeeWorkload := GetLastWorkLoadByEmployeeID(employee.Id)
-
+	hourValue = formatDecimal(employee.BaseSalary / float64(employeeWorkload.DaysWorked)) / float64(employee.HourlyWorkloadPerDay)
+	
 	if employeeWorkload.NocturnalHours > 0 {
-		additions.Nocturnal.Ref = formatDecimal(employee.BaseSalary / float64(employeeWorkload.DaysWorked))
+		additions.Nocturnal.Ref = hourValue
 		additions.Nocturnal.Percent = models.Level1Nocturnal.Percent
-		additions.Nocturnal.Value = (models.Level1Nocturnal.Percent / 100) * (employee.BaseSalary / float64(employeeWorkload.DaysWorked))
+		additions.Nocturnal.Value = formatDecimal(hourValue + ((models.Level1Nocturnal.Percent / 100) * hourValue) * employeeWorkload.NocturnalHours)
 	}
 
 	if employeeWorkload.WeekendHours > 0 {
-		additions.Overtime.Weekend.Ref = formatDecimal(employee.BaseSalary / float64(employeeWorkload.DaysWorked))
+		additions.Overtime.Weekend.Ref = hourValue
 		additions.Overtime.Weekend.Percent = models.Level1OvertimeWeekends.Percent
-		additions.Overtime.Weekend.Value = formatDecimal((models.Level1OvertimeWeekends.Percent / 100) * (employee.BaseSalary / float64(employeeWorkload.DaysWorked)))
-		additions.Overtime.Weekend.Quantity = float64(employeeWorkload.ExtraHours)
+		additions.Overtime.Weekend.Value = formatDecimal(hourValue + ((models.Level1OvertimeWeekends.Percent / 100) * hourValue) * employeeWorkload.WeekendHours)
+		additions.Overtime.Weekend.Quantity = float64(employeeWorkload.WeekendHours)
 
 	}
 
 	if employeeWorkload.ExtraHours > 0 {
-		additions.Overtime.Default.Ref = formatDecimal(employee.BaseSalary / float64(employeeWorkload.DaysWorked))
+		additions.Overtime.Default.Ref = hourValue
 		additions.Overtime.Default.Percent = models.Level1OvertimeDefault.Percent
-		additions.Overtime.Default.Value = formatDecimal((models.Level1OvertimeDefault.Percent / 100) * (employee.BaseSalary / float64(employeeWorkload.DaysWorked)))
+		additions.Overtime.Default.Value = formatDecimal(hourValue + ((models.Level1OvertimeDefault.Percent / 100) * hourValue) * employeeWorkload.ExtraHours)
 		additions.Overtime.Default.Quantity = float64(employeeWorkload.ExtraHours)
 	}
 
