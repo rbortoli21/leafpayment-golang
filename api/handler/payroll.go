@@ -84,7 +84,8 @@ func calculateAddition(employee models.Employee, employer models.Employer) model
 	var additions models.AdditionsPayrollDto
 
 	if employee.HasPericolous {
-		additions.Dangerousness.Ref = models.Level1Dangerousness.Percent
+		additions.Dangerousness.Ref = employee.BaseSalary
+		additions.Dangerousness.Percent = models.Level1Dangerousness.Percent
 		additions.Dangerousness.Value = (models.Level1Dangerousness.Percent / 100) * employee.BaseSalary
 	}
 
