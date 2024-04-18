@@ -1,4 +1,4 @@
-module github.com/ghenoo/folhadepagamento
+module github.com/rbortoli21/leafpayment-golang
 
 go 1.22.0
 

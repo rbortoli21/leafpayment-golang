@@ -7,7 +7,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/ghenoo/folhadepagamento/models"
+	"github.com/rbortoli21/leafpayment-golang/models"
 )
 
 func GeneratePayrollHandler(w http.ResponseWriter, r *http.Request) {

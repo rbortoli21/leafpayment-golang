@@ -5,8 +5,8 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/ghenoo/folhadepagamento/models"
-	"github.com/ghenoo/folhadepagamento/repository"
+	"github.com/rbortoli21/leafpayment-golang/models"
+	"github.com/rbortoli21/leafpayment-golang/repository"
 )
 
 var employerRepository repository.EmployerRepository

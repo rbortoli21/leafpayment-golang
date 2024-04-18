@@ -1,7 +1,7 @@
 package repository
 
 import (
-	"github.com/ghenoo/folhadepagamento/models"
+	"github.com/rbortoli21/leafpayment-golang/models"
 	"gorm.io/gorm"
 )
 
