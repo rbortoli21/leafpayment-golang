@@ -49,7 +49,7 @@ func calculateEmployeePayroll(employeeId uint) models.Payroll {
 	payroll.EmployerPayrollDto.Cnpj = employer.CNPJ
 
 	payroll.DiscountsPayrollDto = calculateDiscounts(employee)
-	payroll.AdditionsPayrollDto = calculateAddition(employee, employer)
+	payroll.AdditionsPayrollDto = calculateAddition(employee)
 	payroll.SalaryPayrollDto = calculateSalary(employee, payroll.AdditionsPayrollDto.Total, payroll.DiscountsPayrollDto.Total)
 	payroll.WorkedHours = calculateWorkedHours(employee)
 
@@ -90,7 +90,7 @@ func calculateDiscounts(employee models.Employee) models.DiscountsPayrollDto {
 	return discounts
 }
 
-func calculateAddition(employee models.Employee, employer models.Employer) models.AdditionsPayrollDto {
+func calculateAddition(employee models.Employee) models.AdditionsPayrollDto {
 	var additions models.AdditionsPayrollDto
 
 	if employee.HasPericolous {
