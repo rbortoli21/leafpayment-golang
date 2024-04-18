@@ -108,27 +108,27 @@ func calculateAddition(employee models.Employee, employer models.Employer) model
 	}
 
 	employeeWorkload := GetLastWorkLoadByEmployeeID(employee.Id)
-	hourValue := formatDecimal(employee.BaseSalary / employeeWorkload.DaysWorked) / femployee.HourlyWorkloadPerDay
+	hourValue := formatDecimal(employee.BaseSalary / float64(employeeWorkload.DaysWorked)) / float64(employee.HourlyWorkloadPerDay)
 	
 	if employeeWorkload.NocturnalHours > 0 {
 		additions.Nocturnal.Ref = hourValue
 		additions.Nocturnal.Percent = models.Level1Nocturnal.Percent
-		additions.Nocturnal.Value = formatDecimal(hourValue + ((models.Level1Nocturnal.Percent / 100) * hourValue) * employeeWorkload.NocturnalHours)
+		additions.Nocturnal.Value = formatDecimal(hourValue + ((models.Level1Nocturnal.Percent / 100) * hourValue) * float64(employeeWorkload.NocturnalHours))
 	}
 
 	if employeeWorkload.WeekendHours > 0 {
 		additions.Overtime.Weekend.Ref = hourValue
 		additions.Overtime.Weekend.Percent = models.Level1OvertimeWeekends.Percent
-		additions.Overtime.Weekend.Value = formatDecimal(hourValue + ((models.Level1OvertimeWeekends.Percent / 100) * hourValue) * employeeWorkload.WeekendHours)
-		additions.Overtime.Weekend.Quantity = employeeWorkload.WeekendHours
+		additions.Overtime.Weekend.Value = formatDecimal(hourValue + ((models.Level1OvertimeWeekends.Percent / 100) * hourValue) * float64(employeeWorkload.WeekendHours))
+		additions.Overtime.Weekend.Quantity = float64(employeeWorkload.WeekendHours)
 
 	}
 
 	if employeeWorkload.ExtraHours > 0 {
 		additions.Overtime.Default.Ref = hourValue
 		additions.Overtime.Default.Percent = models.Level1OvertimeDefault.Percent
-		additions.Overtime.Default.Value = formatDecimal(hourValue + ((models.Level1OvertimeDefault.Percent / 100) * hourValue) * employeeWorkload.ExtraHours)
-		additions.Overtime.Default.Quantity = employeeWorkload.ExtraHours
+		additions.Overtime.Default.Value = formatDecimal(hourValue + ((models.Level1OvertimeDefault.Percent / 100) * hourValue) * float64(employeeWorkload.ExtraHours))
+		additions.Overtime.Default.Quantity = float64(employeeWorkload.ExtraHours)
 	}
 
 	if employee.Dependents != nil && len(*employee.Dependents) > 0 {
